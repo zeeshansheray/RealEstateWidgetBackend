@@ -1,8 +1,9 @@
 // Assuming you have already created and exported the 'pool' object from your database connection module.
 
-const GetDataService = async () => {
+const GetDataService = async (reqQuery) => {
+    console.log('zee ', reqQuery)
     try {
-      const query = 'SELECT * FROM des54556 LIMIT 50';
+      const query = `SELECT * FROM ${reqQuery.ref} LIMIT 50`;
   
       const results = await global.pool.query(query);
       const data = results.rows;

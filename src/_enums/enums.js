@@ -27,7 +27,8 @@ const ResponseStatus = {
 }
 
 const ResponseMessages = {
-    VALIDATION_ERROR    : 'Invalid or missing field'
+    VALIDATION_ERROR: 'Invalid or missing field',
+    AUTH_ERROR      : 'Unauthorized User'
 }
 
 const UserTypes = {

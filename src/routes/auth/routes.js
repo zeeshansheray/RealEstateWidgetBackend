@@ -14,7 +14,7 @@ const Route = () => {
         {
             method      : ReqMethods.GET,
             url         : '/',
-            middlewares : [],
+            middlewares : [Authenticate],
             fn          : ApiErrorHandler(controllers.GetData)
         },
     ]
