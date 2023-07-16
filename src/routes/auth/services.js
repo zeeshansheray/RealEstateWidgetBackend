@@ -15,8 +15,7 @@ const GetDataService = async (reqQuery) => {
         data: data.length > 0 ? data : [],
       };
     } catch (error) {
-      console.error('Error executing query:', error);
-      throw new Error('Error retrieving data.'); // Throw an error to be caught by the caller.
+      throw new Error('Unable to find data'); // Throw an error to be caught by the caller.
     }
   };
   
