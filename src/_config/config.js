@@ -5,10 +5,6 @@ const env = {
     corsOption   : '',
 }
 
-// console.log('process ', process.env.user)
-
-
-
 if(process.env.NODE_ENV === ENV.DEVELOPMENT){
     const corsOption = {
         origin                  : '*',
@@ -16,7 +12,6 @@ if(process.env.NODE_ENV === ENV.DEVELOPMENT){
         optionsSuccessStatus    : ResponseStatus.SUCCESS
     }
     env.corsOption = corsOption
-    env.mongodb_uri = env.mongodb_uri
 }
 
 

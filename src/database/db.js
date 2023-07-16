@@ -14,6 +14,7 @@ const connectDb = () => {
         password: process.env.PASSWORD,
 });
 
+global.pool = pool;
 
 // Try to connect
 pool.connect()

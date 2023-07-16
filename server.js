@@ -29,8 +29,9 @@ app.set('view engine', 'ejs');
 const server = http.createServer(app);
 
 server.listen(env.port, () => {
-  // console.log('Server is listening at', env.port, 'with env', process.env.NODE_ENV);
+  console.log('Server is listening at', env.port, 'with env', process.env.NODE_ENV);
 });
+
 
 
 endpoints(app);

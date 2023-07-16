@@ -1,5 +1,3 @@
-const User = require('../../model/user')
-
 const { ResponseStatus, ResponseMessages } = require("../../_enums")
 const { ApiErrorHandler, ValidationHandler }                  = require("../../_utils/handler")
 const { decodeToken }                      = require('../../_utils/guard')
