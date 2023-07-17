@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json())
 
 app.use(compression())
-app.use(express.static(path.join(__dirname, 'build')))
+// app.use(express.static(path.join(__dirname, 'build')))
 app.set('view engine', 'ejs')
 
 
