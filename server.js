@@ -7,7 +7,7 @@ const env = require('./src/_config/config')
 const connectDb = require('./src/database/db')
 const endpoints = require('./src/routes')
 const bodyParser = require('body-parser');
-const { ResponseMessages } = require('./src/_enums')
+const { ResponseMessages, ResponseStatus } = require('./src/_enums')
 
 const app = express()
 app.use(cors());
@@ -41,11 +41,12 @@ app.get('/getData', async(req, res) => {
       const data = results.rows;
   
       console.log('data ', data.length)
-      return {
+      res.status(ResponseStatus.SUCCESS).send({ 
         success: data.length > 0,
         message: data.length > 0 ? 'Users found successfully' : 'Cannot find users',
         data: data.length > 0 ? data : [],
-      };
+
+       })
     
     } catch (error) {
       throw new Error('Unable to find data'); // Throw an error to be caught by the caller.
