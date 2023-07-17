@@ -1,18 +1,18 @@
 const express = require('express')
 const compression = require('compression')
 const cors = require('cors')
-const path = require('path')
+// const path = require('path')
 
 const env = require('./src/_config/config')
-const connectDb = require('./src/database/db')
-const endpoints = require('./src/routes')
+// const connectDb = require('./src/database/db')
+// const endpoints = require('./src/routes')
 const bodyParser = require('body-parser');
 
 const app = express()
 app.use(cors());
 
 // Connect to Database
-connectDb()
+// connectDb()
 
 // app.use(express.urlencoded({extended: false, limit: '50mb'}))
 
@@ -27,6 +27,10 @@ app.set('view engine', 'ejs')
 app.get('/users', (req, res) => {
     // API logic for handling GET request to /api/users
     console.log('hi')
+
+    res.send({
+        success : true
+    })
   });
 
 
@@ -43,7 +47,7 @@ app.listen(env.port, () => {
     console.log('Server is listening at', env.port, 'with env', process.env.NODE_ENV);
 })
 
-endpoints(app)
+// endpoints(app)
 
 process.on("unhandledRejection", (err) => {
     console.log("Unhandeled Rejection\n ", err);
