@@ -1,4 +1,4 @@
-chmod 600 ./key/devtables.pem
-ssh -i ./key/devtables.pem ubuntu@13.214.72.251
+chmod 600 ./key/realestate.pem
+ssh -i ./key/realestate.pem ubuntu@3.17.165.202
 
 
