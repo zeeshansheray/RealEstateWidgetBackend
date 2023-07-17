@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const Authenticate = async (req, res, next) => {
 
+    console.log('zee1')
     const token = req.header('x-auth-token');
 
     if(!token || !token.includes('Bearer')) // check valid token
