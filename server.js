@@ -24,6 +24,11 @@ app.use(compression())
 // app.use(express.static(path.join(__dirname, 'build')))
 app.set('view engine', 'ejs')
 
+app.get('/api/users', (req, res) => {
+    // API logic for handling GET request to /api/users
+    console.log('hi')
+  });
+
 
 // app.options('*', cors(env.corsOption))
 // app.use(function (req, res, next) {

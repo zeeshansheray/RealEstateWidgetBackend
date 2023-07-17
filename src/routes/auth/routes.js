@@ -6,7 +6,7 @@ const { ReqMethods } = require('../../_enums/enums')
 const controllers = require('./controllers')
 
 const { ApiErrorHandler } = require('../../_utils/handler')
-const { Authenticate } = require('../../lib/auth/auth.services')
+// const { Authenticate } = require('../../lib/auth/auth.services')
 
 console.log('routes ')
 
