@@ -7,6 +7,7 @@ const env = require('./src/_config/config')
 const connectDb = require('./src/database/db')
 const endpoints = require('./src/routes')
 const bodyParser = require('body-parser');
+const { ResponseMessages } = require('./src/_enums')
 
 const app = express()
 app.use(cors());
@@ -24,19 +25,33 @@ app.use(compression())
 // app.use(express.static(path.join(__dirname, 'build')))
 app.set('view engine', 'ejs')
 
-app.get('/users', (req, res) => {
-    // API logic for handling GET request to /api/users
-    console.log('hi')
+app.get('/getData', async(req, res) => {
+    const token = req.header('x-auth-token');
+
+    if(!token || !token.includes('Bearer')) // check valid token
+    return res.status(ResponseStatus.UNAUTHORIZED).send({ error: ResponseMessages.AUTH_ERROR, status: ResponseStatus.UNAUTHORIZED })
+
+    if(token !== ('Bearer ' + process.env.USERNAME +'&'+process.env.PASSWORD))
+    return res.status(ResponseStatus.UNAUTHORIZED).send({ error: ResponseMessages.AUTH_ERROR, status: ResponseStatus.UNAUTHORIZED })
+
+    try {
+      const query = `SELECT * FROM ${req.query.ref} LIMIT 50`;
+  
+      const results = await global.pool.query(query);
+      const data = results.rows;
+  
+      console.log('data ', data.length)
+      return {
+        success: data.length > 0,
+        message: data.length > 0 ? 'Users found successfully' : 'Cannot find users',
+        data: data.length > 0 ? data : [],
+      };
+    
+    } catch (error) {
+      throw new Error('Unable to find data'); // Throw an error to be caught by the caller.
+    }
+
   });
-
-
-// app.options('*', cors(env.corsOption))
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-//     res.header("Access-Control-Allow-Headers", "Origin,Content-Type,x-auth-user,x-amz-meta-fieldname,x-auth-token");
-//     next();
-// });
 
 
 app.listen(env.port, () => {
