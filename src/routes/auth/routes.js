@@ -8,6 +8,7 @@ const controllers = require('./controllers')
 const { ApiErrorHandler } = require('../../_utils/handler')
 const { Authenticate } = require('../../lib/auth/auth.services')
 
+console.log('routes ')
 
 const Route = () => {
     const routes = [
