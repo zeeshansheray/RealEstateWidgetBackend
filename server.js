@@ -24,7 +24,7 @@ app.use(express.json())
 app.use(compression())
 // app.use(express.static(path.join(__dirname, 'build')))
 app.set('view engine', 'ejs')
-
+// 
 app.get('/getData', async(req, res) => {
     console.log('here')
     const token = req.header('x-auth-token');
