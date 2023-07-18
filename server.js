@@ -5,7 +5,6 @@ const path = require('path')
 
 const env = require('./src/_config/config')
 const connectDb = require('./src/database/db')
-const endpoints = require('./src/routes')
 const bodyParser = require('body-parser');
 const { ResponseMessages, ResponseStatus } = require('./src/_enums')
 
@@ -53,14 +52,23 @@ app.get('/getData', async(req, res) => {
       throw new Error('Unable to find data'); // Throw an error to be caught by the caller.
     }
 
+});
+
+const users = [
+    { id: 1, name: 'John Doe', age: 30 },
+    { id: 2, name: 'Jane Smith', age: 25 },
+    { id: 3, name: 'Bob Johnson', age: 40 }
+  ];
+  
+  // GET endpoint to fetch all users
+  app.get('/users', (req, res) => {
+    res.json(users); // Respond with the users array as JSON
   });
 
 
 app.listen(env.port, () => {
     console.log('Server is listening at', env.port, 'with env', process.env.NODE_ENV);
 })
-
-endpoints(app)
 
 process.on("unhandledRejection", (err) => {
     console.log("Unhandeled Rejection\n ", err);
