@@ -1,4 +1,4 @@
 chmod 600 ./key/realestate.pem
-ssh -i ./key/realestate.pem ubuntu@3.17.165.202
+ssh -i ./key/realestate.pem ubuntu@18.216.115.113
 
 

@@ -26,6 +26,7 @@ app.use(compression())
 app.set('view engine', 'ejs')
 
 app.get('/getData', async(req, res) => {
+    console.log('here')
     const token = req.header('x-auth-token');
 
     if(!token || !token.includes('Bearer')) // check valid token
