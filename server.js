@@ -35,7 +35,7 @@ app.get('/getData', async(req, res) => {
     return res.status(ResponseStatus.UNAUTHORIZED).send({ error: ResponseMessages.AUTH_ERROR, status: ResponseStatus.UNAUTHORIZED })
 
     try {
-      const query = `SELECT * FROM ${req.query.ref} LIMIT 50`;
+      const query = `SELECT * FROM ${req.query.ref}`;
   
       const results = await global.pool.query(query);
       const data = results.rows;
