@@ -10,7 +10,7 @@ const connectDb = () => {
         host    : process.env.HOST,
         port    : parseInt(process.env.DBPORT),
         database: process.env.DATABASE,
-        user    : process.env.USERNAME,
+        user    : "andrew4a923a7dcef14a7d",
         password: process.env.PASSWORD,
 });
 

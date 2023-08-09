@@ -10,7 +10,7 @@ const { ResponseMessages, ResponseStatus } = require('./src/_enums')
 
 const app = express()
 app.use(cors());
-
+  
 // Connect to Database
 connectDb()
 
@@ -25,22 +25,22 @@ app.use(compression())
 app.set('view engine', 'ejs')
 // 
 app.get('/getData', async(req, res) => {
-    console.log('here')
     const token = req.header('x-auth-token');
+
 
     if(!token || !token.includes('Bearer')) // check valid token
     return res.status(ResponseStatus.UNAUTHORIZED).send({ error: ResponseMessages.AUTH_ERROR, status: ResponseStatus.UNAUTHORIZED })
 
-    if(token !== ('Bearer ' + process.env.USERNAME +'&'+process.env.PASSWORD))
+    if(token !== ('Bearer ' + 'andrew4a923a7dcef14a7d' +'&'+process.env.PASSWORD))
     return res.status(ResponseStatus.UNAUTHORIZED).send({ error: ResponseMessages.AUTH_ERROR, status: ResponseStatus.UNAUTHORIZED })
 
     try {
       const query = `SELECT * FROM ${req.query.ref}`;
   
       const results = await global.pool.query(query);
+
       const data = results.rows;
   
-      console.log('data ', data.length)
       res.status(ResponseStatus.SUCCESS).send({ 
         success: data.length > 0,
         message: data.length > 0 ? 'Users found successfully' : 'Cannot find users',
