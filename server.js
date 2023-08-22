@@ -76,8 +76,8 @@ const users = [
   });
 
 
-app.listen(8000, () => {
-    console.log('Server is listening at', 8000, 'with env', process.env.NODE_ENV);
+app.listen(8080, () => {
+    console.log('Server is listening at', 8080, 'with env', process.env.NODE_ENV);
 })
 
 process.on("unhandledRejection", (err) => {
