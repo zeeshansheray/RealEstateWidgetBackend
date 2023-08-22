@@ -67,6 +67,8 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+console.log('trans ', transporter)
+
 // Load and render the EJS template
 const emailTemplate = fs.readFileSync('email-template.ejs', 'utf-8');
 
