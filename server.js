@@ -2,11 +2,17 @@ const express = require('express')
 const compression = require('compression')
 const cors = require('cors')
 const path = require('path')
+const nodemailer = require('nodemailer')
 
 const env = require('./src/_config/config')
 const connectDb = require('./src/database/db')
 const bodyParser = require('body-parser');
 const { ResponseMessages, ResponseStatus } = require('./src/_enums')
+
+const corsOptions = {
+  origin : '*',
+  optionsSuccessStatus : 204
+}
 
 const app = express()
 app.use(cors());
@@ -28,7 +34,7 @@ app.get('/getData', async(req, res) => {
     const token = req.header('x-auth-token');
 
 
-    if(!token || !token.includes('Bearer')) // check valid token
+    if(!token || !token.includes('Bearer')) // check valid tsoken
     return res.status(ResponseStatus.UNAUTHORIZED).send({ error: ResponseMessages.AUTH_ERROR, status: ResponseStatus.UNAUTHORIZED })
 
     if(token !== ('Bearer ' + 'andrew4a923a7dcef14a7d' +'&'+process.env.PASSWORD))
