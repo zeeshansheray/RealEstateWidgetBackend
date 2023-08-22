@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const ejs = require('ejs');
 const fs = require('fs');
+const nodemailer = require('nodemailer')
 
 const connectDb = require('./src/database/db')
 const bodyParser = require('body-parser');
