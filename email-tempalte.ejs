@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    p {
+      color: #777;
+      margin-bottom: 20px;
+    }
+    .message {
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+    .footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      border-radius: 0 0 5px 5px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>Feel free to get in touch with us. We'd love to hear from you!</p>
+    <form>
+      <label for="name">Name:</label>
+      <p><%= name %></p>
+      <label for="phone">Phone:</label>
+      <p><%= phone %></p>
+      <label for="email">Email:</label>
+      <p><%= email %></p>
+      <label for="message">Message:</label>
+      <div class="message">
+        <p><%= message %></p>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
