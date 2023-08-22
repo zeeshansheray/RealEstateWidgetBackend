@@ -1,40 +1,31 @@
-const express = require('express')
+is there any issue in this code, const express = require('express')
 const compression = require('compression')
 const cors = require('cors')
-const path = require('path')
-const nodemailer = require('nodemailer')
 
-const env = require('./src/_config/config')
+const ejs = require('ejs');
+const fs = require('fs');
+
 const connectDb = require('./src/database/db')
 const bodyParser = require('body-parser');
 const { ResponseMessages, ResponseStatus } = require('./src/_enums')
 
-const corsOptions = {
-  origin : '*',
-  optionsSuccessStatus : 204
-}
-
 const app = express()
 app.use(cors());
   
-// Connect to Database
 connectDb()
-
-// app.use(express.urlencoded({extended: false, limit: '50mb'}))
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json())
 
 app.use(compression())
-// app.use(express.static(path.join(__dirname, 'build')))
 app.set('view engine', 'ejs')
-// 
+
 app.get('/getData', async(req, res) => {
     const token = req.header('x-auth-token');
 
 
-    if(!token || !token.includes('Bearer')) // check valid tsoken
+    if(!token || !token.includes('Bearer')) // check valid token
     return res.status(ResponseStatus.UNAUTHORIZED).send({ error: ResponseMessages.AUTH_ERROR, status: ResponseStatus.UNAUTHORIZED })
 
     if(token !== ('Bearer ' + 'andrew4a923a7dcef14a7d' +'&'+process.env.PASSWORD))
@@ -64,20 +55,52 @@ app.get('/getData', async(req, res) => {
 
 });
 
-const users = [
-    { id: 1, name: 'John Doe', age: 30 },
-    { id: 2, name: 'Jane Smith', age: 25 },
-    { id: 3, name: 'Bob Johnson', age: 40 }
-  ];
-  
-  // GET endpoint to fetch all users
-  app.get('/users', (req, res) => {
-    res.json(users); // Respond with the users array as JSON
+// Configure your SMTP settings
+const transporter = nodemailer.createTransport({
+  service: 'smtp.example.com', // Replace with your SMTP service provider
+  auth: {
+    user: 'do-not-reply@realestateintegrate.com', // Replace with your SMTP username
+    pass: '&Wz)8V&?LuC*'  // Replace with your SMTP password
+  }
+});
+
+// Load and render the EJS template
+const emailTemplate = fs.readFileSync('email-template.ejs', 'utf-8');
+
+app.post('/send-email', (req, res) => {
+  console.log('req ', req.body)
+
+  const { name, phone, from, email, message, to } = req.body;
+
+  const renderedTemplate = ejs.render(emailTemplate, {
+    name: name,
+    phone: phone,
+    email: email,
+    message: message
   });
 
+  // Create the email content
+  const mailOptions = {
+    from: from, // Replace with your email address
+    to: to,
+    subject: 'Property Information',
+    html : renderedTemplate 
+  };
 
-app.listen(8000, () => {
-    console.log('Server is listening at', 8000, 'with env', process.env.NODE_ENV);
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      res.status(500).json({ message: 'An error occurred while sending the email.' });
+    } else {
+      console.log('Email sent:', info.response);
+      res.status(200).json({ message: 'Email sent successfully.' });
+    }
+  });
+});
+
+app.listen(8080, () => {
+    console.log('Server is listening at', 8080, 'with env', process.env.NODE_ENV);
 })
 
 process.on("unhandledRejection", (err) => {
