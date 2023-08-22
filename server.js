@@ -2,6 +2,7 @@ const express = require('express')
 const compression = require('compression')
 const cors = require('cors')
 const path = require('path')
+const nodemailer = require('nodemailer')
 
 const ejs = require('ejs');
 const fs = require('fs');
