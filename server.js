@@ -12,8 +12,13 @@ const connectDb = require('./src/database/db')
 const bodyParser = require('body-parser');
 const { ResponseMessages, ResponseStatus } = require('./src/_enums')
 
+const corsOptions = {
+  origin : '*',
+  optionsSuccessStatus : 204
+}
+
 const app = express()
-app.use(cors());
+app.use(cors(corsOptions));
   
 // Connect to Database
 connectDb()
