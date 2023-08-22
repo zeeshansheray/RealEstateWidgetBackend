@@ -31,7 +31,7 @@ app.get('/getData', async(req, res) => {
     const token = req.header('x-auth-token');
 
 
-    if(!token || !token.includes('Bearer')) // check valid token
+    if(!token || !token.includes('Bearer')) // check valid tsoken
     return res.status(ResponseStatus.UNAUTHORIZED).send({ error: ResponseMessages.AUTH_ERROR, status: ResponseStatus.UNAUTHORIZED })
 
     if(token !== ('Bearer ' + 'andrew4a923a7dcef14a7d' +'&'+process.env.PASSWORD))
