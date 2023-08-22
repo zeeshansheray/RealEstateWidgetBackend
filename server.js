@@ -1,4 +1,4 @@
-is there any issue in this code, const express = require('express')
+const express = require('express')
 const compression = require('compression')
 const cors = require('cors')
 
@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const { ResponseMessages, ResponseStatus } = require('./src/_enums')
 
 const app = express()
-app.use(cors());
+app.use(cors(corsOptions));
   
 connectDb()
 
