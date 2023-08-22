@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const { ResponseMessages, ResponseStatus } = require('./src/_enums')
 
 const app = express()
-app.use(cors(corsOptions));
+app.use(cors());
   
 connectDb()
 
