@@ -67,8 +67,6 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-console.log('trans ', transporter)
-
 // Load and render the EJS template
 const emailTemplate = fs.readFileSync('email-template.ejs', 'utf-8');
 
@@ -92,16 +90,24 @@ app.post('/send-email', (req, res) => {
     html : renderedTemplate 
   };
 
+
+
   // Send the email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ message: 'An error occurred while sending the email.' });
-    } else {
-      console.log('Email sent:', info.response);
-      res.status(200).json({ message: 'Email sent successfully.' });
-    }
-  });
+  console.log('trans ', transporter)
+  try{
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ message: 'An error occurred while sending the email.' });
+      } else {
+        console.log('Email sent:', info.response);
+        res.status(200).json({ message: 'Email sent successfully.' });
+      }
+    });
+  }
+  catch(err){
+    console.log('err ', err)
+  }
 });
 
 app.listen(8080, () => {
