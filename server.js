@@ -15,7 +15,7 @@ const corsOptions = {
 }
 
 const app = express()
-app.use(cors());
+app.use(cors(corsOptions));
   
 // Connect to Database
 connectDb()
