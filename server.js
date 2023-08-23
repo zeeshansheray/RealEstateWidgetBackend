@@ -59,7 +59,7 @@ app.get('/getData', async(req, res) => {
 // Configure your SMTP settings
 const transporter = nodemailer.createTransport({
   service: 'mail.realestateintegrate.com', // Replace with your SMTP service provider
-  port : 587,
+  port : 465,
   auth: {
     user: 'do-not-reply@realestateintegrate.com', // Replace with your SMTP username
     pass: '&Wz)8V&?LuC*'  // Replace with your SMTP password
