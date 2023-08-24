@@ -97,8 +97,17 @@ app.post('/send-email', async(req, res) => {
   try {
     const result = await request;
     console.log('Email sent successfully:', result.body);
+    res.status(ResponseStatus.SUCCESS).send({ 
+      success: true,
+      message: 'Email Sent sucessfully',
+     })
+
   } catch (err) {
     console.error('Error sending email:', err);
+    res.status(ResponseStatus.INTERNAL_ERROR).send({ 
+      success: false,
+      message: 'Failed to send email',
+     })
   }
 })  
 
