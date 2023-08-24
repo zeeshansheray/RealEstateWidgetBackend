@@ -63,13 +63,13 @@ const mailjet = new Mailjet({apiKey : '4bdf65f4c227871115dd79bc64bee7ab', apiSec
 app.post('/send-email', async(req, res) => {
   console.log('req ', req.body)
 
-  const { name, phone, from, email, message, to } = req.body;
+  const { name, phone, email, message, to } = req.body;
 
   const renderedTemplate = ejs.render(emailTemplate, {
     name: name,
     phone: phone,
     email: email,
-    message: message``
+    message: message
   });
 
   // Create the email content
@@ -77,7 +77,7 @@ app.post('/send-email', async(req, res) => {
     Messages: [
       {
         From: {
-          Email: from,
+          Email: email,
           Name: name,
         },
         To: [
