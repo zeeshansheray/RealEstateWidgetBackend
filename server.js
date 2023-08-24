@@ -58,6 +58,8 @@ app.get('/getData', async(req, res) => {
 
 const emailTemplate = fs.readFileSync('email-template.ejs', 'utf-8');
 
+const mailjet = require('node-mailjet').connect('4bdf65f4c227871115dd79bc64bee7ab', '866183b28a994b9380c3d0e11dc23350');
+
 app.post('/send-email', async(req, res) => {
   console.log('req ', req.body)
 
@@ -67,7 +69,7 @@ app.post('/send-email', async(req, res) => {
     name: name,
     phone: phone,
     email: email,
-    message: message
+    message: message``
   });
 
   // Create the email content
@@ -88,10 +90,6 @@ app.post('/send-email', async(req, res) => {
         HTMLPart: renderedTemplate
       }
     ]
-
-    
-
-    
 
 
   });
