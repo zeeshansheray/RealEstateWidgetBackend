@@ -56,21 +56,9 @@ app.get('/getData', async(req, res) => {
 
 });
 
-// Configure your SMTP settings
-const transporter = nodemailer.createTransport({
-  service: 'smtp.realestateintegrate.com', // Replace with your SMTP service provider
-  port : 587,
-  secure: false,
-  auth: {
-    user: 'do-not-reply@realestateintegrate.com', // Replace with your SMTP username
-    pass: '&Wz)8V&?LuC*'  // Replace with your SMTP password
-  }
-});
-
-// Load and render the EJS template
 const emailTemplate = fs.readFileSync('email-template.ejs', 'utf-8');
 
-app.post('/send-email', (req, res) => {
+app.post('/send-email', async(req, res) => {
   console.log('req ', req.body)
 
   const { name, phone, from, email, message, to } = req.body;
@@ -83,24 +71,38 @@ app.post('/send-email', (req, res) => {
   });
 
   // Create the email content
-  const mailOptions = {
-    from: from, // Replace with your email address
-    to: to,
-    subject: 'Property Information',
-    html : renderedTemplate 
-  };
+  const request = mailjet.post('send', { version: 'v3.1' }).request({
+    Messages: [
+      {
+        From: {
+          Email: from,
+          Name: name,
+        },
+        To: [
+          {
+            Email: to,
+            Name: to
+          }
+        ],
+        Subject: 'Property Information',
+        HTMLPart: renderedTemplate
+      }
+    ]
 
-  // Send the email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ message: 'An error occurred while sending the email.' });
-    } else {
-      console.log('Email sent:', info.response);
-      res.status(200).json({ message: 'Email sent successfully.' });
-    }
+    
+
+    
+
+
   });
-});
+
+  try {
+    const result = await request;
+    console.log('Email sent successfully:', result.body);
+  } catch (err) {
+    console.error('Error sending email:', err);
+  }
+})  
 
 app.listen(8080, () => {
     console.log('Server is listening at', 8080, 'with env', process.env.NODE_ENV);
