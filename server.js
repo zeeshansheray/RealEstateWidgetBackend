@@ -80,7 +80,7 @@ app.post('/send-email', async(req, res) => {
       {
         From: {
           Email: 'no-reply@realestateintegrate.com',
-          Name: name,
+          Name: firstName + ' ' + lastName,
         },
         To: [
           {
