@@ -63,13 +63,15 @@ const mailjet = require('node-mailjet').connect('4bdf65f4c227871115dd79bc64bee7a
 app.post('/send-email', async(req, res) => {
   console.log('req ', req.body)
 
-  const { name, phone, from, email, message, to } = req.body;
+  const { phone, from, email, firstName, lastName, mls, message, to } = req.body;
 
   const renderedTemplate = ejs.render(emailTemplate, {
-    name: name,
+    firstName: firstName,
+    lastName: lastName,
     phone: phone,
     email: email,
-    message: message``
+    message: message,
+    mls: mls,
   });
 
   // Create the email content
