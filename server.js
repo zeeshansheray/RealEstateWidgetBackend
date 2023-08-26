@@ -4,7 +4,7 @@ const cors = require('cors')
 
 const ejs = require('ejs');
 const fs = require('fs');
-const nodemailer = require('nodemailer')
+const Mailjet = require('node-mailjet')
 
 const connectDb = require('./src/database/db')
 const bodyParser = require('body-parser');
@@ -58,7 +58,7 @@ app.get('/getData', async(req, res) => {
 
 const emailTemplate = fs.readFileSync('email-template.ejs', 'utf-8');
 
-const mailjet = require('node-mailjet').connect('4bdf65f4c227871115dd79bc64bee7ab', '866183b28a994b9380c3d0e11dc23350');
+const mailjet = new Mailjet({apiKey : '4bdf65f4c227871115dd79bc64bee7ab', apiSecret : '866183b28a994b9380c3d0e11dc23350'});
 
 app.post('/send-email', async(req, res) => {
   console.log('req ', req.body)
@@ -79,7 +79,7 @@ app.post('/send-email', async(req, res) => {
     Messages: [
       {
         From: {
-          Email: from,
+          Email: 'no-reply@realestateintegrate.com',
           Name: name,
         },
         To: [
@@ -99,8 +99,17 @@ app.post('/send-email', async(req, res) => {
   try {
     const result = await request;
     console.log('Email sent successfully:', result.body);
+    res.status(ResponseStatus.SUCCESS).send({ 
+      success: true,
+      message: 'Email Sent sucessfully',
+     })
+
   } catch (err) {
     console.error('Error sending email:', err);
+    res.status(ResponseStatus.INTERNAL_ERROR).send({ 
+      success: false,
+      message: 'Failed to send email',
+     })
   }
 })  
 
