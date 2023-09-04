@@ -113,6 +113,15 @@ app.post('/send-email', async(req, res) => {
   }
 })  
 
+app.get('/realestatefetch', async (req, res) => {
+  try {
+    const response = await axios.get('https://pay-per-call-geo.vercel.app/priceline_flight_GEO.html');
+    res.send(response.data);
+  } catch (error) {
+    res.status(500).send('Error fetching content');
+  }
+});
+
 app.listen(8080, () => {
     console.log('Server is listening at', 8080, 'with env', process.env.NODE_ENV);
 })
